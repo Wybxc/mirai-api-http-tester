@@ -1,0 +1,1264 @@
+{
+	"info": {
+		"_postman_id": "a4619ff2-f0df-411f-8961-8729e32c9841",
+		"name": "mirai-api-http",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "认证与会话",
+			"item": [
+				{
+					"name": "认证",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.expect(jsonData.code === 0);\r",
+									"pm.collectionVariables.set(\"sessionKey\", jsonData.session);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"verifyKey\": {{verifyKey}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/verify",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"verify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "绑定",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sessionKey\": {{sessionKey}},\r\n    \"qq\": {{qq}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/bind",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"bind"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "释放",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sessionKey\": {{sessionKey}},\r\n    \"qq\": {{qq}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/release",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"release"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "接收消息与事件",
+			"item": [
+				{
+					"name": "查看队列大小",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/countMessage",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"countMessage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取队列头部",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/fetchMessage?count=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"fetchMessage"
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取队列尾部",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/fetchLatestMessage?count=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"fetchLatestMessage"
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看队列尾部",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/peekLatestMessage?count=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"peekLatestMessage"
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看队列头部",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/peakMessage?count=",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"peakMessage"
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "获取插件信息",
+			"item": [
+				{
+					"name": "获取插件信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/about",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"about"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取机器人信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/sessionInfo",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"sessionInfo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "缓存操作",
+			"item": [
+				{
+					"name": "通过 message_id 获取消息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/messageFromId?id=",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"messageFromId"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "获取账号信息",
+			"item": [
+				{
+					"name": "获取 Bot 资料",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/botProfile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"botProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取好友资料",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/friendProfile?target=",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"friendProfile"
+							],
+							"query": [
+								{
+									"key": "target",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取群成员资料",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/memberProfile?target=&memberId=",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"memberProfile"
+							],
+							"query": [
+								{
+									"key": "target",
+									"value": ""
+								},
+								{
+									"key": "memberId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取好友列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/friendList",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"friendList"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取群列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/groupList",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"groupList"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "消息发送与撤回",
+			"item": [
+				{
+					"name": "发送群消息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageChain\": \"\",\n    \"target\": \"\",\n    \"quote\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/sendGroupMessage",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"sendGroupMessage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "发送好友消息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageChain\": \"\",\n    \"target\": \"\",\n    \"quote\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/sendFriendMessage",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"sendFriendMessage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "撤回消息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/recall",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"recall"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "发送头像戳一戳消息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target\": \"\",\n    \"subject\": \"\",\n    \"kind\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/sendNudge",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"sendNudge"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "发送临时消息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"messageChain\": \"\",\n    \"qq\": \"\",\n    \"group\": \"\",\n    \"quote\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/sendTempMessage",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"sendTempMessage"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "文件操作",
+			"item": [
+				{
+					"name": "查看文件信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/file/info?id=&target=",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"file",
+								"info"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": ""
+								},
+								{
+									"key": "target",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "查看文件列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/file/list?id=&target=",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"file",
+								"list"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": ""
+								},
+								{
+									"key": "target",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "创建文件夹",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"\",\n    \"target\": \"\",\n    \"directoryName\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/file/mkdir",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"file",
+								"mkdir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "删除文件",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"\",\n    \"target\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/file/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"file",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "重命名文件",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"\",\n    \"target\": \"\",\n    \"renameTo\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/file/rename",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"file",
+								"rename"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "移动文件",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"\",\n    \"target\": \"\",\n    \"moveTo\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/file/move",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"file",
+								"move"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "多媒体内容上传",
+			"item": [
+				{
+					"name": "文件上传（暂时不可用）",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"\",\n    \"target\": \"\",\n    \"file\": \"\",\n    \"path\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/file/upload",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"file",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "语音文件上传",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"\",\n    \"voice\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/uploadVoice",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"uploadVoice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "图片文件上传",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"\",\n    \"img\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/uploadImage",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"uploadImage"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "账号管理",
+			"item": [
+				{
+					"name": "删除好友",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/deleteFriend",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"deleteFriend"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "群管理",
+			"item": [
+				{
+					"name": "移出群成员",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target\": \"\",\n    \"memderId\": \"\",\n    \"msg\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/kick",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"kick"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "禁言群成员",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target\": \"\",\n    \"memderId\": \"\",\n    \"time\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/mute",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"mute"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "解除群成员禁言",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target\": \"\",\n    \"memderId\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/unmute",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"unmute"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取群成员列表",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/memberList?target=",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"memberList"
+							],
+							"query": [
+								{
+									"key": "target",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "退出群聊",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/quit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"quit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "解除全体禁言",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/unmuteAll",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"unmuteAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "全体禁言",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/muteAll",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"muteAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "设置群精华消息",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"target\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/setEssence",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"setEssence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取或修改群成员资料",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "获取或修改群设置",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "事件处理",
+			"item": [
+				{
+					"name": "响应用户入群申请",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventId\": \"\",\n    \"fromId\": \"\",\n    \"groupId\": \"\",\n    \"operate\": \"\",\n    \"message\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/resp/memberJoinRequestEvent",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"resp",
+								"memberJoinRequestEvent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "响应添加好友申请",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventId\": \"\",\n    \"fromId\": \"\",\n    \"groupId\": \"\",\n    \"operate\": \"\",\n    \"message\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/resp/newFriendRequestEvent",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"resp",
+								"newFriendRequestEvent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "响应被邀请入群申请",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventId\": \"\",\n    \"fromId\": \"\",\n    \"groupId\": \"\",\n    \"operate\": \"\",\n    \"message\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/resp/botInvitedJoinGroupRequestEvent",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"resp",
+								"botInvitedJoinGroupRequestEvent"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "命令（Console Command）",
+			"item": [
+				{
+					"name": "注册命令",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"alias\": \"\",\n    \"usage\": \"\",\n    \"description\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/cmd/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cmd",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "执行命令",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"command\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/cmd/execute",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cmd",
+								"execute"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{sessionKey}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "sessionKey",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:8000"
+		},
+		{
+			"key": "verifyKey",
+			"value": "your_verify_key"
+		},
+		{
+			"key": "sessionKey",
+			"value": ""
+		},
+		{
+			"key": "qq",
+			"value": "12345678"
+		}
+	]
+}
